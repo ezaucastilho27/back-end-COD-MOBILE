@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Busca de Alimentos no Mercado</title>
+</head>
+<body>
+  <h1>Lista de Alimentos</h1>
+  <ul id="alimentos-list"></ul>
+
+  <script>
+    // Função para buscar alimentos na API
+    async function buscarAlimentos() {
+      const response = await fetch('http://localhost:3000/api/alimentos');
+      const alimentos = await response.json();
+
+      const lista = document.getElementById('alimentos-list');
+      alimentos.forEach(alimento => {
+        const item = document.createElement('li');
+        item.textContent = `${alimento.nome} - R$ ${alimento.preco.toFixed(2)}`;
+        lista.appendChild(item);
+      });
+    }
+
+    // Chama a função ao carregar a página
+    window.onload = buscarAlimentos;
+  </script>
+</body>
+</html>
